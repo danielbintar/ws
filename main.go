@@ -18,6 +18,7 @@ var options struct {
 	origin       string
 	printVersion bool
 	insecure bool
+	token string
 }
 
 func main() {
@@ -27,6 +28,7 @@ func main() {
 		Run:   root,
 	}
 	rootCmd.Flags().StringVarP(&options.origin, "origin", "o", "", "websocket origin")
+	rootCmd.Flags().StringVarP(&options.token, "token", "t", "", "bearer token")
 	rootCmd.Flags().BoolVarP(&options.printVersion, "version", "v", false, "print version")
 	rootCmd.Flags().BoolVarP(&options.insecure, "insecure", "k", false, "skip ssl certificate check")
 
@@ -63,13 +65,18 @@ func root(cmd *cobra.Command, args []string) {
 		origin = originURL.String()
 	}
 
+	var token *string
+	if options.token != "" {
+		token = &options.token
+	}
+
 	var historyFile string
 	user, err := user.Current()
 	if err == nil {
 		historyFile = filepath.Join(user.HomeDir, ".ws_history")
 	}
 
-	err = connect(dest.String(), origin, &readline.Config{
+	err = connect(dest.String(), origin, token, &readline.Config{
 		Prompt:      "> ",
 		HistoryFile: historyFile,
 	}, options.insecure)

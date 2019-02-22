@@ -18,9 +18,13 @@ type session struct {
 	errChan chan error
 }
 
-func connect(url, origin string, rlConf *readline.Config, allowInsecure bool) error {
+func connect(url, origin string, token *string, rlConf *readline.Config, allowInsecure bool) error {
 	headers := make(http.Header)
 	headers.Add("Origin", origin)
+
+	if token != nil {
+		headers.Add("Authorization", "Bearer " + *token)
+	}
 
 	dialer := websocket.Dialer{
 		Proxy: http.ProxyFromEnvironment,
