@@ -13,12 +13,3 @@ Simply run ws with the destination URL.
 ```
 go run main.go connection.go ws://localhost:8002/chat
 ```
-$ ws ws://localhost:3000/ws
-> {"type": "echo", "payload": "Hello, world"}
-< {"type":"echo","payload":"Hello, world"}
-> {"type": "broadcast", "payload": "Hello, world"}
-< {"type":"broadcast","payload":"Hello, world"}
-< {"type":"broadcastResult","payload":"Hello, world","listenerCount":1}
-> ^D
-EOF
-```
