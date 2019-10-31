@@ -4,16 +4,14 @@ ws is a simple command line websocket client designed for exploring and debuggin
 
 ![Example usage recording](https://hashrocket-production.s3.amazonaws.com/uploads/blog/misc/ws/ws.gif)
 
-## Installation
-
-```
-go get -u github.com/hashrocket/ws
-```
+### Pre-requisite
+- Go 1.13.3
 
 ## Usage
 
-Simply run ws with the destination URL. For security some sites check the origin header. ws will automatically send the destination URL as the origin. If this doesn't work you can specify it directly with the `--origin` parameter.
-
+Simply run ws with the destination URL.
+```
+go run main.go connection.go ws://localhost:8002/chat
 ```
 $ ws ws://localhost:3000/ws
 > {"type": "echo", "payload": "Hello, world"}
